@@ -155,11 +155,12 @@ body {
     color: #e0aaff;
   }
   
-  /* Testimonials Section */
+ /* Testimonials Section */
 #testimonials {
   padding: 80px 0;
   background-color: #0d0d0d;
   text-align: center;
+  overflow: hidden; /* Prevents unwanted horizontal scrolling */
 }
 
 #testimonials h2 {
@@ -174,9 +175,13 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   gap: 30px;
+  width: 100%;
   max-width: 1000px;
   margin: 0 auto;
+  padding: 0 20px; /* Ensures content doesn't touch edges */
+  box-sizing: border-box;
 }
 
 .testimonial {
@@ -187,6 +192,7 @@ body {
   box-shadow: 0 0 15px rgba(157, 78, 221, 0.4);
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   max-width: 400px;
+  width: 90%; /* Ensures it adjusts to screen size */
   opacity: 0;
   transform: translateY(50px);
 }
@@ -198,8 +204,9 @@ body {
 
 .testimonial blockquote {
   font-style: italic;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: #f5f5f5;
+  word-wrap: break-word; /* Prevents text from overflowing */
 }
 
 .testimonial p {
@@ -208,6 +215,22 @@ body {
   font-weight: bold;
   margin-top: 15px;
 }
+
+/* Responsive Fix */
+@media (max-width: 768px) {
+  .testimonial-container {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    padding: 0 10px; /* Prevents touching screen edges */
+  }
+
+  .testimonial {
+    width: 100%; /* Ensures proper resizing */
+    max-width: 350px;
+    padding: 30px;
+  }
+}
+
 
   /* Author Section */
   #author {
@@ -353,6 +376,40 @@ body {
     box-shadow: 0 0 10px #9d4edd, 0 0 20px #9d4edd;
   }
   
+  /* Prevent horizontal scrolling */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Ensure the form container is responsive */
+form {
+  width: 90%;
+  max-width: 400px; /* Ensures it doesn't get too wide */
+  margin: 0 auto; /* Centers the form */
+}
+
+/* Make sure input fields fit within the screen */
+form input,
+form textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box; /* Includes padding in width */
+}
+
+/* Ensure buttons don't stretch too wide */
+form button {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Optional: Improve mobile spacing */
+@media (max-width: 600px) {
+  form {
+      width: 95%;
+  }
+}
+
   /* Footer Section */
   footer {
     background-color: #1a1a1a;
