@@ -10,7 +10,14 @@
   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
+<style>
+  @media (max-width: 768px) {
+  body {
+    font-size: 14px;
+  }
+}
 
+</style>
 <body>
   <!-- Sticky Navigation Bar -->
   <nav id="navbar">
@@ -32,7 +39,7 @@
       <h1 class="animate__animated animate__fadeInDown">Crack the Code! The 7 Forbidden Secrets Every Programmer Needs to Dominate the Web Development World!</h1>
       <p class="animate__animated animate__fadeInUp">Master the Hidden Skills That Will Take Your Web Development Career to the Next Level</p>
       <div class="cta-buttons animate__animated animate__fadeInUp">
-        <a href="https://drive.google.com/file/d/1Lfh_R-Q0bjrkONqGY-sV6GGjb8RuUFIE/view?usp=sharing" download class="btn-primary" id="download-link">Download Now</a>
+        <a href="https://drive.google.com/drive/folders/19BWf3_YodB433Swr1aM_P46w5pBax4pl?usp=sharing" download class="btn-primary" id="download-link">Download Now</a>
         <a href="#cta" class="btn-secondary">Get the Paperback</a>
       </div>
     </div>
@@ -105,7 +112,7 @@
       <h2>Ready to Transform Your Web Development Career?</h2>
       <p>Whether you’re a beginner or an experienced developer, grab a copy now! For free.</p>
       <div class="cta-buttons">
-        <a href="https://drive.google.com/file/d/1Lfh_R-Q0bjrkONqGY-sV6GGjb8RuUFIE/view?usp=drive_link" download class="btn-primary" id="download-link">Download the eBook</a>
+        <a href="https://drive.google.com/drive/folders/19BWf3_YodB433Swr1aM_P46w5pBax4pl?usp=sharing" download class="btn-primary" id="download-link">Download the eBook</a>
         <a href="#" class="btn-secondary">Get the Paperback</a>
       </div>
     </div>
@@ -134,10 +141,11 @@
     <div class="container">
       <h2>Subscribe to My Newsletter</h2>
       <p>Get exclusive updates, tips, and resources straight to your inbox.</p>
-      <form id="newsletter-form" action="https://formspree.io/f/xeoebvvl" method="POST">
+      <form id="newsletter-form">
         <input type="email" name="email" placeholder="Enter your email" required>
         <button type="submit">Subscribe</button>
-      </form>
+        <div id="newsletter-message"></div>
+      </form>      
     </div>
   </section>
 
@@ -201,6 +209,52 @@
     document.getElementById('download-link').addEventListener('click', function () {
       fetch('/track-download', { method: 'POST' });
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+  const testimonials = document.querySelectorAll(".testimonial");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    {
+      threshold: 0.3, // Adjust this if testimonials aren't appearing at the right time
+    }
+  );
+
+  document.getElementById('newsletter-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
+
+  fetch('https://formspree.io/f/xeoebvvl', {
+    method: 'POST',
+    body: formData,
+    headers: {
+      'Accept': 'application/json'
+    }
+  }).then(response => {
+    if (response.ok) {
+      document.getElementById('newsletter-message').innerHTML = 'Thank you for subscribing!';
+      form.reset();
+    } else {
+      document.getElementById('newsletter-message').innerHTML = 'Oops! Something went wrong. Please try again.';
+    }
+  }).catch(error => {
+    document.getElementById('newsletter-message').innerHTML = 'Oops! Something went wrong. Please try again.';
+  });
+});
+
+
+  testimonials.forEach((testimonial) => {
+    observer.observe(testimonial);
+  });
+});
+
   </script>
 </body>
 </html>
